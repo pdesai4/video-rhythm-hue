@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:weightSum="10"
-    tools:context="com.example.priyankadesai.videorhythmhue.MainActivity">
+    tools:context="com.example.priyankadesai.videorhythmhue.VideoPlayerActivity">
 
     <VideoView
         android:layout_weight="7"
