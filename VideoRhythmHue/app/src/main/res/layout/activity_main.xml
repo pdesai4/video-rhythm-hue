@@ -22,14 +22,18 @@
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.09"
-            android:text="Hue Setup" />
+            android:text="Hue Setup"
+            android:onClick="openPhilipsHueApp"
+            />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.09"
-            android:text="Video player" />
+            android:text="Video player"
+            android:onClick="openVideoPlayer"
+            />
 
     </LinearLayout>
 </LinearLayout>
