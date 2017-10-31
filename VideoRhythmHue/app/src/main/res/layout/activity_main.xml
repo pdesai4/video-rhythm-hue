@@ -10,30 +10,26 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="472dp"
-        android:text="Video Rhythm Hue"
-        />
+        android:text="@string/video_rhythm_hue" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/button"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.09"
-            android:text="Hue Setup"
-            android:onClick="openPhilipsHueApp"
-            />
+            android:text="@string/hue_setup" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.09"
-            android:text="Video player"
-            android:onClick="openVideoPlayer"
-            />
+            android:text="@string/video_player" />
 
     </LinearLayout>
 </LinearLayout>
