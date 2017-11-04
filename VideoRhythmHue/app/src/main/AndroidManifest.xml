@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".VideoPlayerActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
         </activity>
         <activity android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
