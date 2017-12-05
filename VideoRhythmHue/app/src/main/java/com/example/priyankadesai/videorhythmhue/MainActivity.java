@@ -1,9 +1,23 @@
 package com.example.priyankadesai.videorhythmhue;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import java.io.File;
+
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.FileOutputStream;
+import java.util.Date;
+import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -17,8 +31,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void openVideoPlayer(View view) {
-        Intent intent = new Intent(this, VideoPlayerActivity.class);
+        final Intent intent = new Intent(this, VideoPlayerActivity.class);
         startActivity(intent);
+       // Log.d("Start","start");
+
+
+       // String s = String.valueOf(a);
+       // Log.d("Value of average color:"," "+s);
     }
 
     public void openPhilipsHueApp(View view) {
