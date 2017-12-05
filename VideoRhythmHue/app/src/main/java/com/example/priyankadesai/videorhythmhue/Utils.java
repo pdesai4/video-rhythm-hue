@@ -7,29 +7,30 @@ package com.example.priyankadesai.videorhythmhue;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.os.Environment;
 import android.view.View;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.BreakIterator;
 import java.util.Date;
 
-public class Utils {
+import static android.media.MediaMetadataRetriever.OPTION_CLOSEST_SYNC;
 
+public class Utils {
+    public static long   timer = 0;
     public static Bitmap takeScreenShot(View view) {
        // View view = activity.findViewById(R.id.videoView);
-        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache();
-        Bitmap b1 = view.getDrawingCache();
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        Bitmap b1 = null;
         Bitmap b = null;
-        Rect frame = new Rect();
-       // activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
-        int statusBarHeight = frame.top;
-
-        //Find the screen dimensions to create bitmap in the same size.
-        //int width = activity.getWindowManager().getDefaultDisplay(). getWidth();
-        //int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+        Uri uri = Uri.parse("android.resource://com.example.priyankadesai.videorhythmhue/" + R.raw.sample);
+        retriever.setDataSource(view.getContext(), uri);
+        b1 = retriever.getFrameAtTime(timer * 1000 * 1000 , OPTION_CLOSEST_SYNC);
+        timer += 5;
         if(b1 != null){
             b = Bitmap.createBitmap(b1);
             FileOutputStream fos;
