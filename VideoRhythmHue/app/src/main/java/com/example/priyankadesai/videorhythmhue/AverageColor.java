@@ -41,6 +41,18 @@ class AverageColor {
         return new AverageColor(R / n, G / n, B / n);
     }
 
+    public int getR() {
+        return mR;
+    }
+
+    public int getG() {
+        return mG;
+    }
+
+    public int getB() {
+        return mB;
+    }
+
     @Override
     public String toString() {
         return "AverageColor{" +
