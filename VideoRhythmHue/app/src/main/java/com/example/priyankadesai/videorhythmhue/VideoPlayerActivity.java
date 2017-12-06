@@ -1,51 +1,57 @@
 package com.example.priyankadesai.videorhythmhue;
 
-import android.app.Activity;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
-import java.io.File;
 
 public class VideoPlayerActivity extends AppCompatActivity {
 
+    private static final long REFRESH_RATE = 1000;
     private VideoView mVideoView;
+    private Handler mHandler;
+    private Runnable mScreenShotTask;
+    private MediaMetadataRetriever mMediaMetadataRetriever;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 
+        mHandler = new Handler();
         Uri uri = Uri.parse("android.resource://com.example.priyankadesai.videorhythmhue/" + R.raw.sample);
+
+        mMediaMetadataRetriever = new MediaMetadataRetriever();
+        mMediaMetadataRetriever.setDataSource(this, uri);
+
         mVideoView = findViewById(R.id.videoView);
         mVideoView.setMediaController(new MediaController(this));
         mVideoView.setVideoURI(uri);
 
-        final int INTERVAL = 1000 * 5;
-        final Handler mHandler = new Handler();
-        final Activity test = this;
-        final View mvideoview = mVideoView;
-        final Runnable screenShotTask = new Runnable()
-        {
-            int times = 0;
+        // TODO: Do this on background thread
+        final ImageView imageViewTemp = findViewById(R.id.imageViewTemp);
+        mScreenShotTask = new Runnable() {
             @Override
-            public void run(){
-                int a = AverageColor.calculateAverageColor(Utils.takeScreenShot(mvideoview),1);
-                System.out.println("The output is ======> " + a);
-                times ++;
-                if(times < 20){
-                    mHandler.postDelayed(this, INTERVAL);
+            public void run() {
+                if (mVideoView.isPlaying()) {
+                    Bitmap frame = mMediaMetadataRetriever.getFrameAtTime(
+                            mVideoView.getCurrentPosition() * 1000,
+                            MediaMetadataRetriever.OPTION_CLOSEST_SYNC
+                    );
+                    if (frame != null) {
+                        imageViewTemp.setImageBitmap(frame);
+                    }
+                    AverageColor averageColor = AverageColor.fromBitmap(frame, 1);
+                    System.out.println("The output is ======> " + averageColor);
                 }
+                mHandler.postDelayed(this, REFRESH_RATE);
             }
         };
-
-        screenShotTask.run();
     }
 
     @Override
@@ -62,6 +68,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         if (!mVideoView.isPlaying()) {
             mVideoView.requestFocus();
             mVideoView.start();
+            mScreenShotTask.run();
         }
     }
 
@@ -69,5 +76,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mVideoView.stopPlayback();
+        mScreenShotTask = null;
+        mHandler = null;
     }
 }

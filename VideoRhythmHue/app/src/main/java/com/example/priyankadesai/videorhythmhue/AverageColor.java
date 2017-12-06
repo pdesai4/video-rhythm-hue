@@ -3,15 +3,29 @@ package com.example.priyankadesai.videorhythmhue;
 /**
  * Created by rajvi on 04-12-2017.
  */
-import android.graphics.Color;
-import android.graphics.Bitmap;
 
-public class AverageColor {
-    public static int calculateAverageColor(Bitmap bitmap, int pixelSpacing) {
-        if(bitmap == null){
-            return -1;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+
+class AverageColor {
+
+    private int mR;
+    private int mG;
+    private int mB;
+
+    private AverageColor(int r, int g, int b) {
+        mR = r;
+        mG = g;
+        mB = b;
+    }
+
+    static AverageColor fromBitmap(Bitmap bitmap, int pixelSpacing) {
+        if (bitmap == null) {
+            return new AverageColor(0, 0, 0);
         }
-        int R = 0; int G = 0; int B = 0;
+        int R = 0;
+        int G = 0;
+        int B = 0;
         int height = bitmap.getHeight();
         int width = bitmap.getWidth();
         int n = 0;
@@ -24,8 +38,15 @@ public class AverageColor {
             B += Color.blue(color);
             n++;
         }
+        return new AverageColor(R / n, G / n, B / n);
+    }
 
-        //System.out.print(Color.rgb(R / n, G / n, B / n));
-        return Color.rgb(R / n, G / n, B / n);
+    @Override
+    public String toString() {
+        return "AverageColor{" +
+                "mR=" + mR +
+                ", mG=" + mG +
+                ", mB=" + mB +
+                '}';
     }
 }

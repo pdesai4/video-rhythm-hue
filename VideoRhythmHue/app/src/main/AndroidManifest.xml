@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.priyankadesai.videorhythmhue">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -14,9 +14,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".VideoPlayerActivity"
-            android:screenOrientation="landscape">
-        </activity>
-        <activity android:name=".MainActivity"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
