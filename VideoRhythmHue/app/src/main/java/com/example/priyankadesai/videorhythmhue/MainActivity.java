@@ -1,25 +1,19 @@
 package com.example.priyankadesai.videorhythmhue;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import java.io.File;
-
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import java.io.FileOutputStream;
-import java.util.Date;
-import android.graphics.Bitmap;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
+
+    private SensorManager mSensorManager;
+    private Sensor mLight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,24 +22,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.button1).setOnClickListener(this);
         findViewById(R.id.button2).setOnClickListener(this);
+
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
 
     public void openVideoPlayer(View view) {
         final Intent intent = new Intent(this, VideoPlayerActivity.class);
         startActivity(intent);
-       // Log.d("Start","start");
-
-
-       // String s = String.valueOf(a);
-       // Log.d("Value of average color:"," "+s);
     }
 
     public void openPhilipsHueApp(View view) {
-        // TODO
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.philips.lighting.hue2");
         if (launchIntent != null) {
-            startActivity(launchIntent);//null pointer check in case package name was not found
+            startActivity(launchIntent);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
     }
 
     @Override
@@ -58,6 +61,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button2:
                 openVideoPlayer(v);
                 break;
+        }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
+            Log.i("Sensor Changed", "onSensor Change :" + event.values[0]);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        if (sensor.getType() == Sensor.TYPE_LIGHT) {
+            Log.i("Sensor Changed", "Accuracy :" + accuracy);
         }
     }
 }
