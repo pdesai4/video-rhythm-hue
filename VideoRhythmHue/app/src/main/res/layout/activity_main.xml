@@ -18,14 +18,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/calibrateIntensityButton"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.09"
-            android:text="@string/hue_setup" />
+            android:text="@string/calibrate_intensity" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/videoPlayerButton"
             android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.09"
