@@ -1,9 +1,11 @@
 package com.example.priyankadesai.videorhythmhue;
 
+import android.annotation.TargetApi;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static android.content.Context.SENSOR_SERVICE;
+
+@TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class CalibrateIntensityActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
 
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
