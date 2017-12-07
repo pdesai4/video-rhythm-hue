@@ -26,13 +26,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static android.content.Context.SENSOR_SERVICE;
-
 @TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class CalibrateIntensityActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
 
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "VIDEO_RHYTHM_HUE";
+    private static final float LIGHT_SENSOR_MAX_VALUE = 40f;
     private OkHttpClient mOkHttpClient;
     private SensorManager mSensorManager;
     private Sensor mLight;
@@ -45,6 +44,7 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
         findViewById(R.id.calibrateOK).setOnClickListener(this);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        //mLightMaximumRange = mLight.getMaximumRange();
         mOkHttpClient = new OkHttpClient();
     }
 
@@ -70,7 +70,14 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
     }
 
     private int calculateBrightnessValue() {
-        return (int) (254 * mSensorReading / 40000);
+        int value = (int) ((254.0f * mSensorReading / LIGHT_SENSOR_MAX_VALUE));
+        if (value < 0) {
+            value = 0;
+        } else if (value > 254) {
+            value = 254;
+        }
+        Log.d(TAG, "Setting: " + value);
+        return value;
     }
 
     private void setHueBrightness(int brightnessValue) {
