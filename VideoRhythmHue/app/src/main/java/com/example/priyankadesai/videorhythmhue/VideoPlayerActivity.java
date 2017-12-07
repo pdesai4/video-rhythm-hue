@@ -33,6 +33,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private static final long REFRESH_RATE = 100;
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "VIDEO_RHYTHM_HUE";
+    private static final String URL = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
+    private static final String RESOURCE = "android.resource://com.example.priyankadesai.videorhythmhue/" + R.raw.nature;
     private Handler mHandler;
     private Runnable mScreenShotTask;
     private OkHttpClient mOkHttpClient;
@@ -47,8 +49,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         mMediaPlayer = new MediaPlayer();
         mOkHttpClient = new OkHttpClient();
         mHandler = new Handler();
-        //Uri uri = Uri.parse("android.resource://com.example.priyankadesai.videorhythmhue/" + R.raw.sample);
-        final Uri uri = Uri.parse("android.resource://com.example.priyankadesai.videorhythmhue/" + R.raw.nature);
+        final Uri uri = Uri.parse(RESOURCE);
 
         //final ImageView imageViewTemp = findViewById(R.id.imageViewTemp);
         mScreenShotTask = new Runnable() {
@@ -105,7 +106,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 averageColor.getB(),
                 "LCT014");
 
-        String url = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
+        // String url = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
 
         JSONObject jsonBody = new JSONObject();
         JSONArray jsonArray = new JSONArray();
@@ -120,7 +121,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, jsonBody.toString());
         final Request request = new Request.Builder()
-                .url(url)
+                .url(URL)
                 .put(body)
                 .build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {

@@ -32,6 +32,7 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "VIDEO_RHYTHM_HUE";
     private static final float LIGHT_SENSOR_MAX_VALUE = 40f;
+    private static final String URL = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
     private OkHttpClient mOkHttpClient;
     private SensorManager mSensorManager;
     private Sensor mLight;
@@ -82,7 +83,7 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
 
     private void setHueBrightness(int brightnessValue) {
         // Send brightness value to the hue
-        String url = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
+        // String url = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
 
         JSONObject jsonBody = new JSONObject();
         try {
@@ -94,7 +95,7 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
 
         RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, jsonBody.toString());
         final Request request = new Request.Builder()
-                .url(url)
+                .url(URL)
                 .put(body)
                 .build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
