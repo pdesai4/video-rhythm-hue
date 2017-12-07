@@ -106,8 +106,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 averageColor.getB(),
                 "LCT014");
 
-        // String url = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
-
         JSONObject jsonBody = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         try {

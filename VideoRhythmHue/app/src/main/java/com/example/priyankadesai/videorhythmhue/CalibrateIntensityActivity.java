@@ -83,8 +83,6 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
 
     private void setHueBrightness(int brightnessValue) {
         // Send brightness value to the hue
-        // String url = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
-
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("bri", brightnessValue);

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Video Rhythm Hue</string>
-    <string name="calibrate_intensity">Calibarte Intensity</string>
+    <string name="calibrate_intensity">Calibrate Intensity</string>
     <string name="video_player">Video player</string>
     <string name="video_rhythm_hue">Video Rhythm Hue</string>
+    <string name="philips_hue_app">Philips Hue App</string>
 </resources>

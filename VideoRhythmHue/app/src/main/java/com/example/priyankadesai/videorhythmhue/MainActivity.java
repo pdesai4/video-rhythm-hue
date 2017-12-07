@@ -3,9 +3,12 @@ package com.example.priyankadesai.videorhythmhue;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = "TESTING";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.calibrateIntensityButton).setOnClickListener(this);
         findViewById(R.id.videoPlayerButton).setOnClickListener(this);
+        findViewById(R.id.philipAppButton).setOnClickListener(this);
     }
 
     public void openVideoPlayer(View view) {
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void openPhilipsHueApp(View view) {
+        Log.d(TAG, "openPhilipsHueApp: Attempt");
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.philips.lighting.hue2");
         if (launchIntent != null) {
             startActivity(launchIntent);
@@ -42,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.videoPlayerButton:
                 openVideoPlayer(v);
+                break;
+
+            case R.id.philipAppButton:
+                openPhilipsHueApp(v);
                 break;
         }
     }
