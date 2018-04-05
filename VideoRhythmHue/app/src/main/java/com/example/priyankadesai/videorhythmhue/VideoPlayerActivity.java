@@ -33,7 +33,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private static final long REFRESH_RATE = 100;
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "VIDEO_RHYTHM_HUE";
-    private static final String URL = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
+    private static final String URL = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/3/state";
     private static final String RESOURCE = "android.resource://com.example.priyankadesai.videorhythmhue/" + R.raw.nature;
     private Handler mHandler;
     private Runnable mScreenShotTask;
@@ -51,14 +51,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
         mHandler = new Handler();
         final Uri uri = Uri.parse(RESOURCE);
 
-        //final ImageView imageViewTemp = findViewById(R.id.imageViewTemp);
         mScreenShotTask = new Runnable() {
             @Override
             public void run() {
                 if (mMediaPlayer.isPlaying()) {
                     Bitmap frame = mTextureView.getBitmap();
                     if (frame != null) {
-                        //imageViewTemp.setImageBitmap(frame);
                         AverageColor averageColor = AverageColor.fromBitmap(frame, 1);
                         frame.recycle();
                         sendColorToHue(averageColor);
@@ -85,7 +83,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             @Override
             public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-
             }
 
             @Override
@@ -95,7 +92,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             @Override
             public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-
             }
         });
     }
@@ -130,9 +126,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Log.d(TAG, "Hue API call onResponse");
-                Log.d(TAG, "Response code: " + response.code());
                 //noinspection ConstantConditions
+                Log.d(TAG, "Response code: " + response.code());
                 Log.d(TAG, "Response: " + response.body().string());
             }
         });

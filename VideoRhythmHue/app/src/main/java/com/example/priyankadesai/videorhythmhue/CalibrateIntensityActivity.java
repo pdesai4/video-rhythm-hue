@@ -32,7 +32,7 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = "VIDEO_RHYTHM_HUE";
     private static final float LIGHT_SENSOR_MAX_VALUE = 40f;
-    private static final String URL = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/1/state";
+    private static final String URL = "http://192.168.2.3/api/m1PdiJCDPDPWOg7oIOVBt-Dzja2nSigINkN4dryx/lights/3/state";
     private OkHttpClient mOkHttpClient;
     private SensorManager mSensorManager;
     private Sensor mLight;
@@ -45,7 +45,6 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
         findViewById(R.id.calibrateOK).setOnClickListener(this);
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        //mLightMaximumRange = mLight.getMaximumRange();
         mOkHttpClient = new OkHttpClient();
     }
 
@@ -77,7 +76,6 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
         } else if (value > 254) {
             value = 254;
         }
-        Log.d(TAG, "Setting: " + value);
         return value;
     }
 
@@ -105,9 +103,8 @@ public class CalibrateIntensityActivity extends AppCompatActivity implements Vie
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                Log.d(TAG, "Hue API call onResponse");
-                Log.d(TAG, "Response code: " + response.code());
                 //noinspection ConstantConditions
+                Log.d(TAG, "Response code: " + response.code());
                 Log.d(TAG, "Response: " + response.body().string());
                 finish();
             }

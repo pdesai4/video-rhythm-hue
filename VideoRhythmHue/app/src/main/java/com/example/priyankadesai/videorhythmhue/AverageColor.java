@@ -1,9 +1,5 @@
 package com.example.priyankadesai.videorhythmhue;
 
-/**
- * Created by rajvi on 04-12-2017.
- */
-
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
